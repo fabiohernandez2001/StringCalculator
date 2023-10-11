@@ -9,8 +9,7 @@
             if (op.Equals("")) { return 0; }
             string[] argvs = op.Split(',');
             int sum = 0;
-            int min = Math.Min(3, argvs.Length);
-            for (int i = 0; i < min; i++)
+            for (int i = 0; i < argvs.Length; i++)
             {
                 sum += Int32.Parse(argvs[i]);
             }
