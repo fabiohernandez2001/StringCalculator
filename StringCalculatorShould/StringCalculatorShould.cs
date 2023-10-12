@@ -54,11 +54,15 @@ namespace StringCalculatorTest
         [TestMethod]
         public void given_negative_numbers_should_throw_an_exception_()
         {
-            string[] negatives = {"1", "-23","4","5"};
-            try
-            {
-                calculator.FilterNegative(negatives);
-            }catch(Exception ex) { Assert.Equals(21,21); }    
+            string[] negatives = {"1","2","-3","4","5"};
+            Assert.ThrowsException<Exception>(() => calculator.FilterNegative(negatives));
+        }
+        [TestMethod]
+        public void given_numbers_biggers_than_1000_should_be_ignored_()
+        {
+            string[] many = {"1","1002", "3" };
+            Assert.AreEqual(1,calculator.FilterBigNumbers(many)[0]);
+            Assert.AreEqual(3, calculator.FilterBigNumbers(many)[1]);
         }
     }
 }

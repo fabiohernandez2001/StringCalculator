@@ -1,4 +1,5 @@
-﻿using System.Data;
+﻿using System.Collections;
+using System.Data;
 
 namespace StringCalculator
 {
@@ -11,13 +12,24 @@ namespace StringCalculator
         {
             if (new_sep != null && new_sep.Length > 0) {  separators = new_sep; }
         }
-        public void FilterNegative(string[] strings) {
-            string[] err = {};
-            foreach (string c in strings)
+        public ArrayList FilterBigNumbers(string[] argv)
+        {
+            ArrayList filtered = new ArrayList() ;
+            int str_to_int = 0;
+            foreach(string number in argv)
             {
-                if (c.Contains("-")) { err.Append(c); }
+                str_to_int = int.Parse(number);
+                if(str_to_int <= 1000) { filtered.Add(str_to_int); }
             }
-            if (err.Length>0) { throw new Exception($"negatives not allowed {err}"); }
+            return filtered;
+        }
+        public void FilterNegative(string[] numbers) {
+            string err = string.Empty;
+            foreach (string c in numbers)
+            {
+                if (c.Contains("-")) { err+=c.ToString()+", "; }
+            }
+            if (err.Length>0) { err.SkipLast(1); throw new Exception($"negatives not allowed {err}"); }
             
         }
         private string[] SelectSeparators(string args)
@@ -36,18 +48,19 @@ namespace StringCalculator
             }
             return args.Split(separators, StringSplitOptions.RemoveEmptyEntries);
         }
-        public string[] TakeArgs(string args)
+        public ArrayList TakeArgs(string args)
         {
             string[] argv = SelectSeparators(args);
             FilterNegative(argv);
-            return argv;
+            ArrayList argv2= FilterBigNumbers(argv);
+            return argv2;
         }
         public int add(string op)
         {
             int sum = 0;
             if (string.IsNullOrEmpty(op)) { return 0; }
-            string[] argvs = TakeArgs(op);
-            foreach (string arg in argvs) { sum += Int32.Parse(arg); }
+            ArrayList argvs = TakeArgs(op);
+            foreach (int arg in argvs) { sum += arg; }
             return sum;
         }
     }
