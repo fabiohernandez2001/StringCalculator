@@ -9,15 +9,24 @@ namespace StringCalculator
         { }
         public void SetFormat(char[] new_sep)
         {
-            separators = new_sep;
+            if (new_sep != null && new_sep.Length > 0) {  separators = new_sep; }
         }
+        
         public string[] TakeArgs(string args)
         {
-            
-            string[] filtered = args.Split(separators);
-            if (string.IsNullOrEmpty(filtered.First())) { filtered = filtered.Skip(1).ToArray(); }
-            if (string.IsNullOrEmpty(filtered.Last())) { filtered = filtered.SkipLast(1).ToArray(); }
-            return filtered;
+            if (args[0].Equals('/') && args[1].Equals('/'))
+            {
+                char[] new_sep = new char[args.Length];
+                int i = 2;
+                while (!args[i].Equals('\n'))
+                {
+                    new_sep[i] = args[i];
+                    i++;
+                }
+                this.SetFormat(new_sep);
+                args = args.Substring(i + 1);
+            }
+            return args.Split(separators, StringSplitOptions.RemoveEmptyEntries);
         }
         public int add(string op)
         {
