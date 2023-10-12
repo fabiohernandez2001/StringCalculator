@@ -27,5 +27,21 @@ namespace StringCalculatorTest
             int result = calculator.add(many);
             Assert.AreEqual(21, result);
         }
+        [TestMethod]
+        public void given_empty_elements_should_return_()
+        {
+            string many = ",1,2,3,4,5,6,";
+            int result = calculator.add(many);
+            Assert.AreEqual(21, result);
+        }
+        [TestMethod]
+        public void given_different_separators_should_return_()
+        {
+            calculator.SetFormat(new char[]{',','\n'});
+            string many = "\n1,2,3,4\n5,6\n";
+            int result = calculator.add(many);
+            Assert.AreEqual(21, result);
+        }
+
     }
 }
