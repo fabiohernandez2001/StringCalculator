@@ -42,6 +42,14 @@ namespace StringCalculatorTest
             int result = calculator.add(many);
             Assert.AreEqual(21, result);
         }
-
+        /*
+        [TestMethod]
+        public void given_delimiters_should_return_()
+        {
+            calculator.SetFormat(new char[] { ',', '\n' });
+            string many = "//;\n1,2,3,4\n5,6\n";
+            int result = calculator.add(many);
+            Assert.AreEqual(21, result);
+        }*/
     }
 }

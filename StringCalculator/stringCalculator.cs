@@ -13,6 +13,7 @@ namespace StringCalculator
         }
         public string[] TakeArgs(string args)
         {
+            
             string[] filtered = args.Split(separators);
             if (string.IsNullOrEmpty(filtered.First())) { filtered = filtered.Skip(1).ToArray(); }
             if (string.IsNullOrEmpty(filtered.Last())) { filtered = filtered.SkipLast(1).ToArray(); }
@@ -20,9 +21,11 @@ namespace StringCalculator
         }
         public int add(string op)
         {
+            int sum = 0;
             if (string.IsNullOrEmpty(op)) { return 0; }
-            int[] argvs = TakeArgs(op).Cast<int>().ToArray();
-            return argvs.Sum();
+            string[] argvs = TakeArgs(op);
+            foreach (string arg in argvs) { sum += Int32.Parse(arg); }
+            return sum;
         }
     }
 }
