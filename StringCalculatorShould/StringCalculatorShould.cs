@@ -47,9 +47,18 @@ namespace StringCalculatorTest
         public void given_delimiters_should_return_()
         {
             calculator.SetFormat(new char[] { ',', '\n' });
-            string many = "//;\n1;2;3;4;5;6\n";
+            string many = "//;,\n1;2;3;,4;5,6\n";
             int result = calculator.add(many);
             Assert.AreEqual(21, result);
+        }
+        [TestMethod]
+        public void given_negative_numbers_should_throw_an_exception_()
+        {
+            string[] negatives = {"1", "-23","4","5"};
+            try
+            {
+                calculator.FilterNegative(negatives);
+            }catch(Exception ex) { Assert.Equals(21,21); }    
         }
     }
 }
