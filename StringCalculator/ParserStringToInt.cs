@@ -7,10 +7,10 @@ using System.Threading.Tasks;
 
 namespace StringCalculator
 {
-    internal class Parser
+    internal class ParserStringToInt
     {
         private char[] separators = {',', '\n'};
-        public Parser(){}
+        public ParserStringToInt(){}
         private void SetFormat(char[] new_sep)
         {
             if (new_sep != null && new_sep.Length > 0) { separators = new_sep; }
@@ -31,11 +31,11 @@ namespace StringCalculator
             }
             return args.Split(separators, StringSplitOptions.RemoveEmptyEntries);
         }
-        private ArrayList FilterBigNumbers(string[] argv)
+        private List<int> FilterBigNumbers(string[] StringOp)
         {
-            ArrayList filtered = new ArrayList();
+            List<int> filtered = new List<int>();
             int str_to_int = 0;
-            foreach (string number in argv)
+            foreach (string number in StringOp)
             {
                 str_to_int = int.Parse(number);
                 if (str_to_int <= 1000) { filtered.Add(str_to_int); }
@@ -52,12 +52,12 @@ namespace StringCalculator
             if (err.Length > 0) { err.SkipLast(1); throw new Exception($"negatives not allowed {err}"); }
 
         }
-        public ArrayList ParseOp(string args)
+        public List<int> ParseOp(string args)
         {
-            if(args == null || args.Length == 0) { return new ArrayList(); }
+            if(args == null || args.Length == 0) { return new List<int>(); }
             string[] argv = this.SelectSeparators(args);
             this.FilterNegative(argv);
-            ArrayList argv2 = this.FilterBigNumbers(argv);
+            List<int> argv2 = this.FilterBigNumbers(argv);
             return argv2;
         }
     }

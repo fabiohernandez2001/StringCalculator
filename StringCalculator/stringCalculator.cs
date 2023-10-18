@@ -5,15 +5,13 @@ namespace StringCalculator
 {
     public class stringCalculator
     {
-        private Parser parser = new Parser();
+        private ParserStringToInt ParserStringtoInt;
         public stringCalculator()
-        { }
+        { ParserStringtoInt = new ParserStringToInt(); }
         public int add(string op)
         {
-            int sum = 0;
-            ArrayList argvs = this.parser.ParseOp(op);
-            foreach (int arg in argvs) { sum += arg; }
-            return sum;
+            List<int> operands = this.ParserStringtoInt.ParseOp(op);
+            return operands.Sum();
         }
     }
 }
