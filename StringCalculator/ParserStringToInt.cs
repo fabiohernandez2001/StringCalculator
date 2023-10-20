@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace StringCalculator
 {
-    internal class ParserStringToInt
+    public class ParserStringToInt
     {
         private char[] separators = {',', '\n'};
         public ParserStringToInt(){}
@@ -26,6 +26,7 @@ namespace StringCalculator
                     new_sep[i] = args[i];
                     i++;
                 }
+                new_sep[i] = '\n';
                 this.SetFormat(new_sep);
                 args = args.Substring(i + 1);
             }
@@ -52,13 +53,13 @@ namespace StringCalculator
             if (err.Length > 0) { err.SkipLast(1); throw new Exception($"negatives not allowed {err}"); }
 
         }
-        public List<int> ParseOp(string args)
+        public List<int> ParseOp(string op)
         {
-            if(args == null || args.Length == 0) { return new List<int>(); }
-            string[] argv = this.SelectSeparators(args);
-            this.FilterNegative(argv);
-            List<int> argv2 = this.FilterBigNumbers(argv);
-            return argv2;
+            if(op == null || op.Length == 0) { return new List<int>(); }
+            string[] op_selected = this.SelectSeparators(op);
+            this.FilterNegative(op_selected);
+            List<int> op_filtered = this.FilterBigNumbers(op_selected);
+            return op_filtered;
         }
     }
 }

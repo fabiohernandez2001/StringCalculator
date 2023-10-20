@@ -1,10 +1,14 @@
+using StringCalculator;
+
 namespace StringCalculatorTest
 {
     [TestClass]
     public class StringCalculatorTest
     {
-        private StringCalculator.stringCalculator calculator =
-        new StringCalculator.stringCalculator();
+        private static ParserStringToInt parser =
+            new ParserStringToInt();
+        private stringCalculator calculator =
+        new stringCalculator(parser);
 
         [TestMethod]
         public void given_empty_string_should_return_0()
@@ -65,7 +69,7 @@ namespace StringCalculatorTest
             Assert.ThrowsException<Exception>(() => calculator.add(negatives));
         }
         [TestMethod]
-        public void given_numbers_biggers_than_1000_should_be_ignored_()
+        public void given_numbers_bigger_than_1000_should_be_ignored_()
         {
             string many = "1, 1002, 3" ;
             Assert.AreEqual(4,calculator.add(many));
